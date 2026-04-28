@@ -1,49 +1,246 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
+
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="TestMauiControls.MainPage">
+             xmlns:syncfusion="http://schemas.syncfusion.com/maui/toolkit"
+             x:Class="TestMauiControls.MainPage"
+             Title="Home">
 
-    <ContentPage.Resources>
-        <DataTemplate x:Key="SettingItemTemplate">
-            <Grid ColumnDefinitions="*, 15" HeightRequest="50" Margin="0" Padding="0"
-                  HorizontalOptions="Fill" Background="Green" ColumnSpacing="0" RowSpacing="0"
-                  VerticalOptions="Fill">
-                <Label Text="{Binding .}" HorizontalOptions="Center" Grid.Column="0" VerticalOptions="Center"/>
-                <Label Text=">" HorizontalOptions="Start" VerticalOptions="Center" Grid.Column="1" />
+    <syncfusion:SfShimmer
+        BackgroundColor="Transparent"
+        VerticalOptions="Fill"
+        WaveColor="Gray"
+        WaveWidth="20" RepeatCount="3" IsActive="False">
+        <syncfusion:SfShimmer.CustomView>
+            <Grid RowSpacing="15" Margin="15">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="300" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="50" />
+                </Grid.RowDefinitions>
+                <BoxView Grid.Row="0" CornerRadius="12" VerticalOptions="Fill"/>
+                <BoxView Grid.Row="1" CornerRadius="12" VerticalOptions="Fill"/>
+
+                <BoxView Grid.Row="3" CornerRadius="12" VerticalOptions="Fill"/>
             </Grid>
-        </DataTemplate>
-    </ContentPage.Resources>
+        </syncfusion:SfShimmer.CustomView>
+        <syncfusion:SfShimmer.Content>
+            <ScrollView>
+                <Grid Padding="15" RowSpacing="15">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" HorizontalOptions="Center" ColumnSpacing="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="25" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Text="O"
+                               FontSize="24" VerticalOptions="Center"/>
+                        <Label Grid.Column="1" Text="Description" FontSize="24" MaxLines="3"
+                               LineBreakMode="TailTruncation" VerticalOptions="Center"
+                               HorizontalOptions="Center" HorizontalTextAlignment="Center" />
+                    </Grid>
+                    <Border Grid.Row="1">
+                        <Grid RowSpacing="{OnIdiom Desktop=10, Phone=2}" ColumnSpacing="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="30" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="Center"
+                                   Text="options" FontSize="24"
+                                   FontAttributes="Bold" />
 
-    <Grid ColumnDefinitions="*,*">
-        <Grid Grid.Column="0" RowSpacing="0" ColumnSpacing="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="50" />
-            </Grid.RowDefinitions>
-            <CollectionView Grid.Row="0" Margin="0"
-                        SelectionMode="Single" HorizontalOptions="Fill"
-                        Background="Red"
-                        ItemTemplate="{StaticResource SettingItemTemplate}"
-                        ItemSizingStrategy="MeasureFirstItem" CanReorderItems="False">
-                <CollectionView.ItemsLayout>
-                    <LinearItemsLayout ItemSpacing="0" Orientation="Vertical"/>
-                </CollectionView.ItemsLayout>
-                <CollectionView.ItemsSource>
-                    <x:Array Type="{x:Type x:String}">
-                        <x:String>Item 1</x:String>
-                        <x:String>Item 2</x:String>
-                        <x:String>Item 3</x:String>
-                        <x:String>Item 1</x:String>
-                        <x:String>Item 2</x:String>
-                        <x:String>Item 3</x:String>
-                    </x:Array>
-                </CollectionView.ItemsSource>
-            </CollectionView>
+                            <CheckBox x:Name="CheckBox1" Grid.Row="1" Grid.Column="0"
+                                      IsChecked="{Binding Option1}"/>
+                            <Label Grid.Row="1" Grid.Column="1" 
+                                   Text="Option1"
+                                   VerticalOptions="Center"
+                                   MaxLines="2" LineBreakMode="WordWrap">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ToggleCheckboxCommand}"
+                                                          CommandParameter="{Reference CheckBox1}" />
+                                </Label.GestureRecognizers>
+                            </Label>
 
-            <Button Grid.Row="1" Text="Save" VerticalOptions="End" HeightRequest="{OnIdiom 44, Desktop=60}"
-                                     Margin="5, 0, 5, 5"/>
-        </Grid>
-        <Grid Grid.Column="1" Background="Green"></Grid>
-    </Grid>
+                            <CheckBox x:Name="CheckBox2" Grid.Row="2" Grid.Column="0" 
+                                      IsChecked="{Binding Option2}" 
+                                      IsVisible="False"/>
+                            <Label Grid.Row="2" Grid.Column="1"
+                                   Text="Option2" IsVisible="False"
+                                   VerticalOptions="Center" MaxLines="3" LineBreakMode="WordWrap">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ToggleCheckboxCommand}"
+                                                          CommandParameter="{Reference CheckBox1}" />
+                                </Label.GestureRecognizers>
+                            </Label>
 
+                            <CheckBox x:Name="CheckBox3" Grid.Row="3" Grid.Column="0" HorizontalOptions="Start"
+                                      IsChecked="{Binding Option3}" />
+                            <FlexLayout Margin="0" Padding="0" Grid.Row="3" Grid.Column="1" HorizontalOptions="Start"
+                                        Wrap="Wrap">
+                                <Label
+                                    Text="Option "
+                                    MaxLines="3" LineBreakMode="WordWrap"
+                                    VerticalOptions="Center">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding ToggleCheckboxCommand}"
+                                                              CommandParameter="{Reference CheckBox3}" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+                                <syncfusion:SfNumericUpDown HorizontalOptions="Center" Margin="5, 5"
+                                                            VerticalOptions="Center" WidthRequest="90"
+                                                            IsEditable="True"
+                                                            ShowClearButton="False" ReturnType="Done"
+                                                            ShowBorder="False"
+                                                            TextColor="Black"
+                                                            UpDownButtonColor="{StaticResource Primary}"
+                                                            Minimum="1" Maximum="10" SmallChange="1" LargeChange="3"
+                                                            CustomFormat="00" UpDownPlacementMode="Inline"
+                                                            Value="1" />
+                                <Label Text=" (as you set)"
+                                       MaxLines="2" LineBreakMode="WordWrap"
+                                       VerticalOptions="Center">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding ToggleCheckboxCommand}"
+                                                              CommandParameter="{Reference CheckBox3}" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </FlexLayout>
+
+                            <CheckBox x:Name="CheckBox4" Grid.Row="4" Grid.Column="0"
+                                      IsChecked="{Binding Option4}" IsVisible="False"/>
+                            <Label Grid.Row="4" Grid.Column="1" IsVisible="False"
+                                   Text="Option4"
+                                   VerticalOptions="Center"
+                                   MaxLines="3"
+                                   LineBreakMode="WordWrap">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ToggleCheckboxCommand}"
+                                                          CommandParameter="{Reference CheckBox3}" />
+                                </Label.GestureRecognizers>
+                            </Label>
+
+                            <CheckBox x:Name="CheckBox5" Grid.Row="5" Grid.Column="0"
+                                      IsChecked="{Binding Option5}" HorizontalOptions="Start" />
+                            <Label Grid.Row="5" Grid.Column="1"
+                                   Text="Option5"
+                                   VerticalOptions="Center"
+                                   MaxLines="3"
+                                   LineBreakMode="WordWrap">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ToggleCheckboxCommand}"
+                                                          CommandParameter="{Reference CheckBox5}" />
+                                </Label.GestureRecognizers>
+                            </Label>
+
+                            <CheckBox x:Name="CheckBox6" Grid.Row="6" Grid.Column="0" IsVisible="False"
+                                      IsChecked="{Binding Option6}" HorizontalOptions="Start" />
+                            <FlexLayout Grid.Row="6" Grid.Column="1" Wrap="Wrap" IsVisible="False">
+                                <Label
+                                    Text="Option"
+                                    Padding="0, 0, 6, 0" MaxLines="3" LineBreakMode="WordWrap"
+                                    VerticalOptions="Center">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding ToggleCheckboxCommand}"
+                                                              CommandParameter="{Reference CheckBox6}" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+                                <syncfusion:SfNumericUpDown HorizontalOptions="Center" Margin="5, 5"
+                                                            VerticalOptions="Center" WidthRequest="90"
+                                                            IsEditable="True"
+                                                            ShowClearButton="False" ReturnType="Done"
+                                                            ShowBorder="False"
+                                                            TextColor="Black"
+                                                            UpDownButtonColor="{StaticResource Primary}"
+                                                            Minimum="1" Maximum="3" SmallChange="1" LargeChange="1"
+                                                            CustomFormat="0"
+                                                            UpDownPlacementMode="Inline"
+                                                            Value="1" />
+                            </FlexLayout>
+
+                            <CheckBox x:Name="CheckBox7" Grid.Row="7" Grid.Column="0" IsVisible="False"
+                                      IsChecked="{Binding Option7}" HorizontalOptions="Start" />
+                            <Label Grid.Row="7" Grid.Column="1" IsVisible="False"
+                                   Text="Option7"
+                                   VerticalOptions="Center"
+                                   MaxLines="3"
+                                   LineBreakMode="WordWrap">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ToggleCheckboxCommand}"
+                                                          CommandParameter="{Reference CheckBox7}" />
+                                </Label.GestureRecognizers>
+                            </Label>
+
+                            <CheckBox x:Name="CheckBox8" Grid.Row="8" Grid.Column="0"
+                                      IsChecked="{Binding Option8}" HorizontalOptions="Start" />
+                            <Label Grid.Row="8" Grid.Column="1"
+                                   Text="Option8"
+                                   VerticalOptions="Center"
+                                   MaxLines="3"
+                                   LineBreakMode="WordWrap">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ToggleCheckboxCommand}"
+                                                          CommandParameter="{Reference CheckBox8}" />
+                                </Label.GestureRecognizers>
+                            </Label>
+
+                            <CheckBox x:Name="CheckBox9" Grid.Row="9" Grid.Column="0" HorizontalOptions="Start"
+                                      IsChecked="{Binding Option9}" />
+                            <FlexLayout Grid.Row="9" Grid.Column="1" HorizontalOptions="Start" Wrap="Wrap"
+                                        IsVisible="{Binding IsHelpOptionSupported}">
+                                <Label Text="Option"
+                                       Padding="0, 0, 6, 0" MaxLines="3" LineBreakMode="WordWrap"
+                                       VerticalOptions="Center">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding ToggleCheckboxCommand}"
+                                                              CommandParameter="{Reference CheckBox9}" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+                                <syncfusion:SfNumericUpDown HorizontalOptions="Center" Margin="5, 5"
+                                                            VerticalOptions="Center" WidthRequest="90"
+                                                            IsEditable="True"
+                                                            ShowClearButton="False" ReturnType="Done"
+                                                            ShowBorder="False"
+                                                            TextColor="Black"
+                                                            UpDownButtonColor="{StaticResource Primary}"
+                                                            Minimum="2" Maximum="10" SmallChange="1" LargeChange="1"
+                                                            CustomFormat="0" UpDownPlacementMode="Inline"
+                                                            Value="9" />
+                                <Label Text=" (as you set)" Padding="0, 0, 6, 0"
+                                       MaxLines="2" LineBreakMode="WordWrap"
+                                       VerticalOptions="Center">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding ToggleCheckboxCommand}"
+                                                              CommandParameter="{Reference CheckBox9}" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </FlexLayout>
+                        </Grid>
+                    </Border>
+                    <Border Grid.Row="2" Background="Red" />
+                    <Button Grid.Row="3" Text="Start"
+                                                 Padding="0" Margin="0, 7,0, 0"
+                                                 VerticalOptions="End" HeightRequest="{OnIdiom 44, Desktop=60}"
+                                                 Command="{Binding GoToGameCommand}" />
+                </Grid>
+            </ScrollView>
+        </syncfusion:SfShimmer.Content>
+    </syncfusion:SfShimmer>
 </ContentPage>
