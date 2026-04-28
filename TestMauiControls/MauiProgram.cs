@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 
+using TestMauiControls.ViewModels;
+
 namespace TestMauiControls;
 
 public static class MauiProgram
@@ -15,8 +17,15 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             });
 
+        builder.Services.AddTransient<MainPageViewModel>();
+        builder.Services.AddTransient<SecondPageViewModel>();
+        builder.Services.AddTransient<ThirdPageViewModel>();
+
+        Routing.RegisterRoute(StaticDataContainer.SecondPageRoute, typeof(SecondPage));
+        Routing.RegisterRoute(StaticDataContainer.ThirdPageRoute, typeof(ThirdPage));
+
 #if DEBUG
-		builder.Logging.AddDebug();
+        builder.Logging.AddDebug();
 #endif
 
         return builder.Build();

@@ -1,16 +1,15 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
+
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:TestMauiControls.ViewModels"
              xmlns:testMauiControls="clr-namespace:TestMauiControls"
-             x:Class="TestMauiControls.MainPage"
-             x:DataType="viewModels:MainPageViewModel">
-
-    <Grid RowDefinitions="50,*,*" ColumnDefinitions="*,*">
+             x:Class="TestMauiControls.ThirdPage"
+             x:DataType="viewModels:ThirdPageViewModel">
+	<Grid RowDefinitions="50,*,*" ColumnDefinitions="*,*">
         <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="Center" Text="Invocations:"/>
         <CollectionView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{x:Static testMauiControls:StaticDataContainer.Invocations}"/>
-        <Button Grid.Row="2" Grid.Column="1" Text="Go to page 3" HeightRequest="{OnIdiom 44, Desktop=60}"
-                Command="{Binding NavigateToSecondPageCommand}"/>
+        <Button Grid.Row="2" Grid.Column="0" Text="Go back" HeightRequest="{OnIdiom 44, Desktop=60}"
+                Command="{Binding GoBackCommand}"/>
     </Grid>
-
 </ContentPage>
