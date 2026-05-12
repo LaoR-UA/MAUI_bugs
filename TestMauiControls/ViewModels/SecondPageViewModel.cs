@@ -1,19 +1,35 @@
-﻿using System.Windows.Input;
+﻿using System.Diagnostics;
+using System.Windows.Input;
 
-namespace TestMauiControls.ViewModels
+namespace TestMauiControls.ViewModels;
+
+public class SecondPageViewModel : IQueryAttributable
 {
-    public class SecondPageViewModel : BaseViewModel
+    public ICommand NavigateToThirdPageCommand { get; } = new Command(async () =>
     {
-        public ICommand NavigateToThirdPageCommand { get; } = new Command(async () =>
+        await Shell.Current.GoToAsync(StaticDataContainer.ThirdPageRoute, new Dictionary<string, object>
         {
-            await Shell.Current.GoToAsync(StaticDataContainer.ThirdPageRoute, new Dictionary<string, object>
-            {
-                { "goUpFrom2", 2 }
-            });
+            { "goUpFrom2", 2 }
         });
-        public ICommand GoBackCommand { get; } = new Command(async () =>
+    });
+
+    public ICommand GoBackCommand { get; } = new Command(async () =>
+    {
+        await Shell.Current.GoToAsync("..?callbackFrom2=2");
+    });
+
+    public void ApplyQueryAttributes(IDictionary<string, object> query)
+    {
+        var item = $"{GetType().Name}.ApplyQueryAttributes: {string.Join(" ;", query)}";
+        try
         {
-            await Shell.Current.GoToAsync("..?callbackFrom2=2");
-        });
+            StaticDataContainer.Invocations.Add(item);
+        }
+        catch (Exception exception)
+        {
+            // Sometimes the UI thread is not read to handle collection changes, so we catch the exception and log it instead of crashing the app.
+            Debug.WriteLine(
+                $"Exception while adding invocation: {exception.Message} ; item: {item} ;");
+        }
     }
 }
