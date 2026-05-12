@@ -2,9 +2,9 @@
 
 namespace TestMauiControls;
 
-public partial class MainPage
+public partial class MenuPage
 {
-    public MainPage(MainPageViewModel viewModel)
+    public MenuPage(MenuPageViewModel viewModel)
     {
         InitializeComponent();
         BindingContext = viewModel;

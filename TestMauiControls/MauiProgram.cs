@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using TestMauiControls.ViewModels;
 
 namespace TestMauiControls;
 
@@ -18,6 +19,12 @@ public static class MauiProgram
 #if DEBUG
 		builder.Logging.AddDebug();
 #endif
+
+        builder.Services.AddTransient<MainPageViewModel>();
+        builder.Services.AddTransient<MenuPageViewModel>();
+        builder.Services.AddTransient<SecondPageViewModel>();
+
+        Routing.RegisterRoute("secondPage", typeof(SecondPage));
 
         return builder.Build();
     }
