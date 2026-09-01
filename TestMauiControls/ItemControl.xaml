@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:testMauiControls="clr-namespace:TestMauiControls"
+             xmlns:syncfusion="http://schemas.syncfusion.com/maui/toolkit"
+             x:Class="TestMauiControls.ItemControl"
+             x:DataType="testMauiControls:ItemViewModel">
+
+    <Border Padding="10">
+        <Grid RowSpacing="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70" />
+                <RowDefinition Height="40" />
+                <RowDefinition Height="45" />
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center"
+                   Text="{Binding Text}"
+                   FontAttributes="Bold" TextColor="{StaticResource Primary}" />
+
+            <syncfusion:SfSegmentedControl Grid.Row="1" 
+                                ItemsSource="{Binding Segments}" Padding="0" Margin="0"
+                                         SelectionMode="Single" MaximumHeightRequest="40"
+                                           SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}">
+               <syncfusion:SfSegmentedControl.SelectionIndicatorSettings>
+                    <syncfusion:SelectionIndicatorSettings SelectionIndicatorPlacement="BottomBorder"
+                                                           StrokeThickness="{OnIdiom Desktop=4, Phone=6}"
+                                                           Stroke="{StaticResource Primary}" TextColor="Black" />
+                </syncfusion:SfSegmentedControl.SelectionIndicatorSettings>
+                <syncfusion:SfSegmentedControl.TextStyle>
+                    <syncfusion:SegmentTextStyle TextColor="{StaticResource Primary}" FontSize="14" />
+                </syncfusion:SfSegmentedControl.TextStyle>
+            </syncfusion:SfSegmentedControl>
+
+            <Button Grid.Row="2" Command="{Binding ReplaceCommand}" Text="Replace"></Button>
+        </Grid>
+    </Border>
+</ContentView>
